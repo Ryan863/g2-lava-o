@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #08090a;
+  --foreground: #f8fafc;
+  --card-bg: #121417;
+  --accent-neon: #ceff00;
+  --accent-gold: #d4af37;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card-bg);
+  --color-accent-neon: var(--accent-neon);
+  --color-accent-gold: var(--accent-gold);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #08090a;
+  color: #f8fafc;
+  overflow-x: hidden;
+  selection-background-color: #ceff00;
+  selection-color: #000000;
+}
+
+::selection {
+  background-color: #ceff00;
+  color: #000000;
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08090a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Luxury hairline borders and glass */
+.glass-panel {
+  background: rgba(18, 20, 23, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-nav {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle grid backdrop */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
