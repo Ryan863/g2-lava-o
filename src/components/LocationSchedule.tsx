@@ -23,17 +23,24 @@ export default function LocationSchedule() {
 
   useGSAP(
     () => {
-      gsap.from(".location-box", {
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 80%",
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.2,
-        ease: "power3.out",
-      });
+      if (!container.current) return;
+      gsap.fromTo(
+        ".location-box",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 85%",
+            once: true,
+          },
+          clearProps: "all",
+        }
+      );
     },
     { scope: container }
   );

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { Check, ArrowUpRight, Sparkles, Shield, Droplets } from "lucide-react";
+import { Check, ArrowUpRight, Sparkles } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -35,28 +35,33 @@ export default function ServicesSection() {
 
   useGSAP(
     () => {
-      gsap.from(".services-header", {
+      if (!container.current) return;
+
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,
-          start: "top 80%",
+          start: "top 85%",
+          once: true,
         },
-        y: 30,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
       });
 
-      gsap.from(".service-card", {
-        scrollTrigger: {
-          trigger: ".services-grid",
-          start: "top 85%",
+      tl.fromTo(
+        ".services-header",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", clearProps: "all" }
+      ).fromTo(
+        ".service-card",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power3.out",
+          clearProps: "all",
         },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-      });
+        "-=0.4"
+      );
     },
     { scope: container }
   );
@@ -148,7 +153,7 @@ export default function ServicesSection() {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Section Header */}
-        <div className="services-header flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div className="services-header flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 opacity-100">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] text-[#CEFF00] uppercase mb-3">
               <Sparkles className="w-3.5 h-3.5" />
@@ -170,7 +175,7 @@ export default function ServicesSection() {
               <button
                 key={v}
                 onClick={() => setVehicle(v)}
-                className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer ${
                   vehicle === v
                     ? "bg-[#CEFF00] text-black shadow-md shadow-[#CEFF00]/20"
                     : "text-neutral-400 hover:text-white"
@@ -191,18 +196,19 @@ export default function ServicesSection() {
             return (
               <div
                 key={service.id}
-                className={`service-card relative flex flex-col justify-between rounded-3xl overflow-hidden transition-all duration-300 ${
+                className={`service-card relative flex flex-col justify-between rounded-3xl overflow-hidden transition-all duration-300 opacity-100 ${
                   service.featured
                     ? "bg-[#121417] border-2 border-[#CEFF00] shadow-2xl shadow-[#CEFF00]/10 scale-[1.02] z-10"
                     : "bg-[#0E1013] border border-white/10 hover:border-white/30"
                 }`}
               >
                 {/* Top Image Container */}
-                <div className="relative w-full h-56 sm:h-64 overflow-hidden bg-neutral-900">
+                <div className="relative w-full h-56 sm:h-64 overflow-hidden bg-neutral-900 shrink-0">
                   <Image
                     src={service.image}
                     alt={service.name}
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#121417] via-transparent to-black/40" />

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { Shield, Droplets, Sun, Disc3, ArrowUpRight, Cpu } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -16,28 +15,33 @@ export default function TechShowcase() {
 
   useGSAP(
     () => {
-      gsap.from(".tech-content", {
+      if (!container.current) return;
+
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,
-          start: "top 80%",
+          start: "top 85%",
+          once: true,
         },
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
       });
 
-      gsap.from(".tech-spec-item", {
-        scrollTrigger: {
-          trigger: ".tech-specs-grid",
-          start: "top 85%",
+      tl.fromTo(
+        ".tech-content",
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", clearProps: "all" }
+      ).fromTo(
+        ".tech-spec-item",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: "power3.out",
+          clearProps: "all",
         },
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
-      });
+        "-=0.4"
+      );
     },
     { scope: container }
   );
@@ -87,7 +91,7 @@ export default function TechShowcase() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
         {/* Main Banner Container (Zenith Battery Showcase Style) */}
-        <div className="tech-content rounded-3xl border border-white/10 bg-gradient-to-b from-[#121417] to-[#0A0B0D] p-8 sm:p-12 lg:p-16 overflow-hidden relative shadow-2xl">
+        <div className="tech-content rounded-3xl border border-white/10 bg-gradient-to-b from-[#121417] to-[#0A0B0D] p-8 sm:p-12 lg:p-16 overflow-hidden relative shadow-2xl opacity-100">
           {/* Subtle grid pattern inside card */}
           <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
 
@@ -119,7 +123,7 @@ export default function TechShowcase() {
               return (
                 <div
                   key={idx}
-                  className="tech-spec-item rounded-2xl p-6 bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-300 flex flex-col justify-between"
+                  className="tech-spec-item rounded-2xl p-6 bg-white/[0.03] border border-white/10 hover:border-[#CEFF00]/40 transition-all duration-300 flex flex-col justify-between opacity-100 min-h-[220px]"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">

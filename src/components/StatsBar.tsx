@@ -15,17 +15,24 @@ export default function StatsBar() {
 
   useGSAP(
     () => {
-      gsap.from(".stat-card", {
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 85%",
-        },
-        y: 25,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out",
-      });
+      if (!container.current) return;
+      gsap.fromTo(
+        ".stat-card",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 85%",
+            once: true,
+          },
+          clearProps: "all",
+        }
+      );
     },
     { scope: container }
   );

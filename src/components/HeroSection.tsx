@@ -20,14 +20,16 @@ export default function HeroSection() {
         opacity: 0,
         y: 20,
         duration: 0.8,
-        delay: 0.2,
+        delay: 0.1,
+        clearProps: "all",
       })
         .from(
           ".hero-title",
           {
             opacity: 0,
             y: 30,
-            duration: 1,
+            duration: 0.9,
+            clearProps: "all",
           },
           "-=0.5"
         )
@@ -36,7 +38,8 @@ export default function HeroSection() {
           {
             opacity: 0,
             y: 25,
-            duration: 0.9,
+            duration: 0.8,
+            clearProps: "all",
           },
           "-=0.6"
         )
@@ -45,8 +48,9 @@ export default function HeroSection() {
           {
             opacity: 0,
             y: 20,
-            duration: 0.8,
-            stagger: 0.15,
+            duration: 0.7,
+            stagger: 0.1,
+            clearProps: "all",
           },
           "-=0.5"
         )
@@ -55,8 +59,9 @@ export default function HeroSection() {
           {
             opacity: 0,
             y: 15,
-            duration: 0.7,
-            stagger: 0.1,
+            duration: 0.6,
+            stagger: 0.08,
+            clearProps: "all",
           },
           "-=0.4"
         );

@@ -15,16 +15,23 @@ export default function TestimonialSection() {
 
   useGSAP(
     () => {
-      gsap.from(".testimonial-card", {
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 80%",
-        },
-        y: 35,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-      });
+      if (!container.current) return;
+      gsap.fromTo(
+        ".testimonial-card",
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 85%",
+            once: true,
+          },
+          clearProps: "all",
+        }
+      );
     },
     { scope: container }
   );

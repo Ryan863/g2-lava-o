@@ -25,16 +25,23 @@ export default function BookingInquiry() {
 
   useGSAP(
     () => {
-      gsap.from(".inquiry-content", {
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 80%",
-        },
-        y: 30,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-      });
+      if (!container.current) return;
+      gsap.fromTo(
+        ".inquiry-content",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: container.current,
+            start: "top 85%",
+            once: true,
+          },
+          clearProps: "all",
+        }
+      );
     },
     { scope: container }
   );
